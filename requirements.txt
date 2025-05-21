@@ -2,6 +2,4 @@ streamlit
 pandas
 numpy
 librosa
-requests
-tempfile
 os
