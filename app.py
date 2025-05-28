@@ -10,7 +10,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.preprocessing import LabelEncoder
 
-st.title("Artist Emotion Classifier via Deezer Audio Previews")
+st.title("🎵 Artist Emotion Classifier via Deezer Audio Previews")
 
 # List of artists
 artists = [
@@ -18,7 +18,7 @@ artists = [
     "Ariana Grande", "Billie Eilish", "Shawn Mendes", "Dua Lipa", "The Weeknd"
 ]
 
-selected_artists = st.multiselect("Select artists to process:", artists, default=artists[:3])
+selected_artists = st.multiselect("Select artists to process:", artists, default=artists[:1])
 
 if st.button("Start Processing"):
     progress_bar = st.progress(0)
@@ -43,7 +43,7 @@ if st.button("Start Processing"):
                 params = None
 
             # Process top 10 previews
-            for i, preview_url in enumerate(preview_urls[:10]):
+            for i, preview_url in enumerate(preview_urls[:1000]):
                 response = requests.get(preview_url)
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
                     tmp_file.write(response.content)
@@ -102,7 +102,7 @@ if st.button("Start Processing"):
         conf_matrix = confusion_matrix(y_test, y_pred)
         report = classification_report(y_test, y_pred, target_names=label_encoder.classes_, output_dict=True)
 
-        st.subheader(" Model Evaluation")
+        st.subheader("📊 Model Evaluation")
         st.write(f"**Accuracy:** {accuracy:.2f}")
         st.write("**Confusion Matrix:**")
         st.dataframe(pd.DataFrame(conf_matrix, index=label_encoder.classes_, columns=label_encoder.classes_))
