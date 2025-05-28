@@ -101,13 +101,17 @@ if st.button("Start Processing"):
         accuracy = accuracy_score(y_test, y_pred)
         conf_matrix = confusion_matrix(y_test, y_pred)
         report = classification_report(y_test, y_pred, target_names=label_encoder.classes_, output_dict=True)
+        # Convert to DataFrame and drop the 'support' column
+        report_df = pd.DataFrame(report).transpose()
+        if 'support' in report_df.columns:
+            report_df = report_df.drop(columns=['support'])
 
         st.subheader("📊 Model Evaluation")
         st.write(f"**Accuracy:** {accuracy:.2f}")
         st.write("**Confusion Matrix:**")
         st.dataframe(pd.DataFrame(conf_matrix, index=label_encoder.classes_, columns=label_encoder.classes_))
         st.write("**Classification Report:**")
-        st.dataframe(pd.DataFrame(report).transpose())
+        st.dataframe(pd.DataFrame(report_df).transpose())
 
     else:
         st.warning("No audio previews were processed.")
