@@ -53,14 +53,14 @@ if st.button("Start Processing"):
                     y_audio, sr = librosa.load(tmp_path, duration=3, offset=0.5)
                     y_audio = y_audio.astype(np.float32)
                     mfcc = np.mean(librosa.feature.mfcc(y=y_audio, sr=sr, n_mfcc=40).T, axis=0).astype(np.float32)
-                    pitch = np.mean(mfcc) * 100
+                    timbre = np.mean(mfcc) * 100
 
-                    # Simple pitch-to-emotion mapping
-                    if pitch < 60.81:
+                    # Simple timbre-to-emotion mapping
+                    if timbre < 60.81:
                         emotion = 'Reflective'
-                    elif pitch < 249.23:
+                    elif timbre < 249.23:
                         emotion = 'Calm'
-                    elif pitch > 249.23:
+                    elif timbre > 249.23:
                         emotion = 'Happy'
                     else:
                         emotion = 'Neutral'
@@ -68,7 +68,7 @@ if st.button("Start Processing"):
                     all_data.append({
                         'Artist': artist,
                         'Audio Clip': f"{artist}_preview_{i+1}.mp3",
-                        'Pitch Level': pitch,
+                        'Timbre Level': timbre,
                         'Emotion': emotion
                     })
 
