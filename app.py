@@ -69,7 +69,8 @@ if st.button("Start Processing"):
                         'Artist': artist,
                         'Audio Clip': f"{artist}_preview_{i+1}.mp3",
                         'Timbre Level': timbre,
-                        'Emotion': emotion
+                        'Emotion': emotion,
+                        'title': title,
                     })
 
                     X.append(mfcc)
