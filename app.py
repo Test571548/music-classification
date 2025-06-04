@@ -45,6 +45,7 @@ if st.button("Start Processing"):
             # Process top 10 previews
             for i, preview_url in enumerate(preview_urls[:1000]):
                 response = requests.get(preview_url)
+                st.dataframe( response)
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
                     tmp_file.write(response.content)
                     tmp_path = tmp_file.name
